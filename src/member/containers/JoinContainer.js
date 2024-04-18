@@ -4,8 +4,8 @@ import { useTranslation } from 'react-i18next';
 import styled from 'styled-components';
 import LoginContainer from '../containers/LoginContainer';
 import fontSize from '../../styles/fontSize';
+import { UserInfoConsumer } from '../modules/UserInfoContext';
 const { medium } = fontSize;
-
 
 const OuterBox = styled.div`
   position: absolute;
@@ -29,6 +29,30 @@ const OuterBox = styled.div`
 
 const Login = () => {
   const { t } = useTranslation();
+
+  const loginProcess = ({ setIsLogin, setUserInfo }) => {
+    setIsLogin(true);
+    setUserInfo({ email: 'user01@test.org', name: '사용자01' });
+  };
+
+  return (
+    <UserInfoConsumer>
+      {({ states: { userInfo, isLogin }, actions }) => (
+        <>
+          {isLogin && (
+            <div>
+              {userInfo.email} / {userInfo.name}
+            </div>
+          )}
+          <button type="button" onClick={() => loginProcess(actions)}>
+            로그인
+          </button>
+        </>
+      )}
+    </UserInfoConsumer>
+  );
+
+  /*
   return (
     <>
       <Helmet>
@@ -39,7 +63,7 @@ const Login = () => {
         <LoginContainer />
       </OuterBox>
     </>
-  );
+  ); */
 };
 
 export default React.memo(Login);
