@@ -5,16 +5,17 @@ import Header from '../outlines/Header';
 import Footer from '../outlines/Footer';
 
 const MainBox = styled.main`
-  min-height:650px;
+  min-height: 650px;
+  position: relative;
 `;
 
 const MainLayout = () => {
   return (
     <>
       <Header />
-      <mainBox>
+      <MainBox>
         <Outlet />
-      </mainBox>
+      </MainBox>
       <Footer />
     </>
   );
